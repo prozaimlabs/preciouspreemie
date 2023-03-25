@@ -14,7 +14,7 @@ spec:
         spec:
             containers:
                 - name: auth
-                  image: zubairabubakar/auth
+                  image: us.gcr.io/preemielove-dev-381621/auth
 ---
 apiVersion: v1
 kind: Service
