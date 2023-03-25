@@ -5,10 +5,12 @@ deploy:
         manifests:
             - ./infra/k8s/*
 build:
-    local:
-        push: false
+    # local:
+    #     push: false
+    googleCloudBuild:
+        projectId: preemielove-dev-381621
     artifacts:
-        - image: zubairabubakar/auth
+        - image: us.gcr.io/preemielove-dev-381621/auth
           context: auth
           docker:
               dockerfile: Dockerfile
