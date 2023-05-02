@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { BsChevronDown } from 'react-icons/bs';
@@ -35,9 +36,38 @@ const Menu: React.FC<MenuProps> = ({
                 return (
                     <React.Fragment key={item.id}>
                         {!!item?.subMenu ? (
-                            <li className="cursor-pointer flex items-center gap-2 relative">
+                            <li
+                                className="cursor-pointer flex items-center gap-2 relative"
+                                onMouseEnter={() => setShowCategoryMenu!(true)}
+                                onMouseLeave={() => setShowCategoryMenu!(false)}
+                            >
                                 {item.name}
                                 <BsChevronDown size={14} />
+
+                                {showCategoryMenu && (
+                                    <ul className="bg-white absolute top-6 left-0 min-w-[250px] px-1 text-black shadow-lg">
+                                        {subMenuItems.map((subMenuitem) => {
+                                            return (
+                                                <Link
+                                                    key={subMenuitem.id}
+                                                    href="/"
+                                                    onClick={() =>
+                                                        setShowCategoryMenu!(
+                                                            false
+                                                        )
+                                                    }
+                                                >
+                                                    <li className="h-12 flex justify-between items-center px-3 py-1 hover:bg-black/[0.03] rounded-md">
+                                                        {subMenuitem.name}
+                                                        <span className="opacity-50 text-sm">
+                                                            78
+                                                        </span>
+                                                    </li>
+                                                </Link>
+                                            );
+                                        })}
+                                    </ul>
+                                )}
                             </li>
                         ) : (
                             <li className="cursor-pointer">
