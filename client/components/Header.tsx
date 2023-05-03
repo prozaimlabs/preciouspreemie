@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Wrapper from './Wrapper';
 import Link from 'next/link';
 import Menu from './Menu';
@@ -13,6 +13,26 @@ const Header = () => {
     const [showCategoryMenu, setShowCategoryMenu] = useState(false);
     const [show, setShow] = useState('translate-y-0');
     const [lastScrollY, setLastScollY] = useState(0);
+
+    const controlNavBar = () => {
+        if (window.scrollY > 200) {
+            if (window.screenY > lastScrollY && !mobileMenu) {
+                setShow('-translate-y-[80px]');
+            } else {
+                setShow('shadow-sm');
+            }
+        } else {
+            setShow('translate-y-0');
+        }
+        setLastScollY(window.screenY);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', controlNavBar);
+        return () => {
+            window.removeEventListener('scroll', controlNavBar);
+        };
+    }, [lastScrollY]);
 
     return (
         <header
