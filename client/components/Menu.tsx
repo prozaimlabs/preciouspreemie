@@ -17,11 +17,11 @@ const items = [
 
 const subMenuItems = [
     { id: 1, name: 'Accessories', doc_count: 11 },
-    { id: 1, name: 'Clothings', doc_count: 8 },
-    { id: 1, name: 'Food', doc_count: 64 },
-    { id: 1, name: 'Diaper Covers', doc_count: 66 },
-    { id: 1, name: 'Footies & Coveralls', doc_count: 40 },
-    { id: 1, name: 'gear', doc_count: 9 },
+    { id: 2, name: 'Clothings', doc_count: 8 },
+    { id: 3, name: 'Food', doc_count: 64 },
+    { id: 4, name: 'Diaper Covers', doc_count: 66 },
+    { id: 5, name: 'Footies & Coveralls', doc_count: 40 },
+    { id: 6, name: 'gear', doc_count: 9 },
 ];
 
 const Menu: React.FC<MenuProps> = ({

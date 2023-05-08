@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import SignupModal from '@/components/modals/SignupModal';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     rel="stylesheet"
                 />
             </Head>
+            <SignupModal />
             <Header />
             <Component {...pageProps} />
             <Footer />

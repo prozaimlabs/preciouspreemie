@@ -7,6 +7,7 @@ import { IoMdHeartEmpty } from 'react-icons/io';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { VscChromeClose } from 'react-icons/vsc';
 import MenuMobile from './MenuMobile';
+import UserMenu from './UserMenu';
 
 const Header = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
@@ -90,6 +91,8 @@ const Header = () => {
                             </div>
                         </span>
                     </button>
+
+                    <UserMenu />
 
                     <button
                         className="py-4 px-1 relative border-2 border-transparent text-gray-800 rounded-full 
