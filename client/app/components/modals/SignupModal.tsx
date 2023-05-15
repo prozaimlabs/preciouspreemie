@@ -1,15 +1,17 @@
+'use client';
+
 import axios from 'axios';
 import { FcGoogle } from 'react-icons/fc';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import useSignupModal from '@/hooks/useSignupModal';
 import { useCallback, useState } from 'react';
 import Modal from './Modal';
 import Input from '../inputs/Input';
 import { toast } from 'react-hot-toast';
 import Button from '../Button';
 import { signIn } from 'next-auth/react';
-import useSigininModal from '@/hooks/useSigininModal';
+import useSignupModal from '@/app/hooks/useSignupModal';
+import useSigninModal from '@/app/hooks/useSigninModal';
 
 interface BackendError {
     field: string;
@@ -18,7 +20,7 @@ interface BackendError {
 
 const RegisterModal = () => {
     const signupModal = useSignupModal();
-    const signinModal = useSigininModal();
+    const signinModal = useSigninModal();
     const [isLoading, setIsLoading] = useState(false);
     const [backendErrors, setBackendErrors] = useState<BackendError[]>([]);
 

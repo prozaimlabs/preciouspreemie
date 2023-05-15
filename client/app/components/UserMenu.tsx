@@ -1,18 +1,19 @@
-import { useCallback, useState } from 'react';
+'use client';
 
-import useSignupModal from '@/hooks/useSignupModal';
-import useSigininModal from '@/hooks/useSigininModal';
+import { useCallback, useState } from 'react';
 
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { BiUser } from 'react-icons/bi';
 import UserMenuItem from './navbar/UserMenuItem';
+import useSignupModal from '../hooks/useSignupModal';
+import useSigninModal from '../hooks/useSigninModal';
 
 const UserMenu = () => {
     const router = useRouter();
 
     const signupModal = useSignupModal();
-    const signinModal = useSigininModal();
+    const signinModal = useSigninModal();
 
     const [isOpen, setIsOpen] = useState(false);
 

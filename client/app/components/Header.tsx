@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import Wrapper from './Wrapper';
 import Link from 'next/link';
@@ -9,7 +11,11 @@ import { VscChromeClose } from 'react-icons/vsc';
 import MenuMobile from './MenuMobile';
 import UserMenu from './UserMenu';
 
-const Header = () => {
+interface HeaderProps {
+    currentUser?: any;
+}
+
+const Header: React.FC<HeaderProps> = ({ currentUser }) => {
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showCategoryMenu, setShowCategoryMenu] = useState(false);
     const [show, setShow] = useState('translate-y-0');
@@ -35,6 +41,7 @@ const Header = () => {
         };
     }, [lastScrollY]);
 
+    if (currentUser) console.log('Current User: ', currentUser.currentUser);
     return (
         <header
             className={`w-full h-[50px] md:h-[80px] bg-white flex 
@@ -43,7 +50,10 @@ const Header = () => {
         >
             <Wrapper className="h-[60px] flex justify-between items-center">
                 <Link href={'/'}>
-                    <img src="/logo1.png" className="w-[40px] md:w-[60px]" />
+                    <img
+                        src="/images/logo.png"
+                        className="w-[40px] md:w-[60px]"
+                    />
                 </Link>
 
                 <Menu
