@@ -1,4 +1,5 @@
 import getCurrentUser from './actions/getCurrentUser';
+import { sanitizeCurrentUserFromBackend } from './api/sanitizers/current-user';
 import ClientOnly from './components/ClientOnly';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -24,7 +25,7 @@ export default async function RootLayout({
 }) {
     const currentUser = await getCurrentUser();
 
-    if (currentUser) console.log('CurrentUser: ', currentUser?.currentUser);
+    console.log('CurrentUser: ', currentUser?.currentUser);
 
     return (
         <html lang="en">
@@ -33,7 +34,7 @@ export default async function RootLayout({
                     <SigninModal />
                     <SignupModal />
                     <ToasterContext />
-                    <Header currentUser={currentUser} />
+                    <Header currentUser={currentUser?.currentUser} />
                     <Footer />
                 </ClientOnly>
                 <div className="pb-20 pt-28">{children}</div>

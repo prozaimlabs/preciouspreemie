@@ -1,5 +1,6 @@
 import { getSession } from './getSession';
 import buildRequest from './buildRequest';
+import { sanitizeCurrentUserFromBackend } from '../api/sanitizers/current-user';
 
 export default async function getCurrentUser() {
     try {
@@ -20,7 +21,7 @@ export default async function getCurrentUser() {
         //     }
         // );
 
-        const currentUser = response.data.currentUser;
+        const currentUser = sanitizeCurrentUserFromBackend(response.data);
 
         if (!currentUser) {
             return null;

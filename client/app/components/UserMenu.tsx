@@ -8,8 +8,13 @@ import { BiUser } from 'react-icons/bi';
 import UserMenuItem from './navbar/UserMenuItem';
 import useSignupModal from '../hooks/useSignupModal';
 import useSigninModal from '../hooks/useSigninModal';
+import { CurrentUser } from '../interfaces/user';
 
-const UserMenu = () => {
+interface UserMenuProps {
+    currentUser?: CurrentUser;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     const router = useRouter();
 
     const signupModal = useSignupModal();
@@ -37,7 +42,7 @@ const UserMenu = () => {
             {isOpen && (
                 <div className="absolute min-w-[200px] px-1 rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-6 text-sm">
                     <div className="flex flex-col cursor-pointer">
-                        {false ? (
+                        {currentUser ? (
                             <>
                                 <UserMenuItem
                                     onClick={() => router.push('/account')}

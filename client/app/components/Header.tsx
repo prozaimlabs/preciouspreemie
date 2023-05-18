@@ -10,9 +10,10 @@ import { BiMenuAltRight } from 'react-icons/bi';
 import { VscChromeClose } from 'react-icons/vsc';
 import MenuMobile from './MenuMobile';
 import UserMenu from './UserMenu';
+import { CurrentUser } from '../interfaces/user';
 
 interface HeaderProps {
-    currentUser?: any;
+    currentUser?: CurrentUser;
 }
 
 const Header: React.FC<HeaderProps> = ({ currentUser }) => {
@@ -41,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
         };
     }, [lastScrollY]);
 
-    if (currentUser) console.log('Current User: ', currentUser.currentUser);
+    if (currentUser) console.log('Current User: ', currentUser);
     return (
         <header
             className={`w-full h-[50px] md:h-[80px] bg-white flex 
@@ -102,7 +103,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
                         </span>
                     </button>
 
-                    <UserMenu />
+                    <UserMenu currentUser={currentUser} />
 
                     <button
                         className="py-4 px-1 relative border-2 border-transparent text-gray-800 rounded-full 

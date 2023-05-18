@@ -1,9 +1,9 @@
 import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import axios from 'axios';
-import { headers } from 'next/headers';
 import buildRequest from '@/app/actions/buildRequest';
+import { sanitizeCurrentUserFromBackend } from '../../sanitizers/current-user';
+import { useRouter } from 'next/navigation';
 
 export const authOptions: AuthOptions = {
     providers: [
@@ -22,33 +22,37 @@ export const authOptions: AuthOptions = {
                     throw new Error('Invalid credentials');
                 }
 
-                console.log('++++++ Credentials: ', credentials);
-
-                // const response = await axios.post(
-                //     'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/signin',
-                //     credentials
-                // );
                 let user = null;
                 await buildRequest()
                     .post('/api/users/signin', credentials)
                     .then((response) => {
                         user = response.data;
-                        console.log('######### SIGNIN RESPONSE: ', response);
                     })
                     .catch((error) => {
                         console.log(error);
                     });
 
-                console.log('++++++ Signed in User: ', user);
-
                 if (!user) {
                     throw new Error('Invalid credentials');
                 }
 
-                return user;
+                return sanitizeCurrentUserFromBackend(user);
             },
         }),
     ],
+    events: {
+        async signOut() {
+            const router = useRouter();
+            await buildRequest()
+                .post('/api/users/signout')
+                .then(() => {
+                    router.push('/');
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+    },
     debug: process.env.NODE_ENV === 'development',
     session: {
         strategy: 'jwt',
