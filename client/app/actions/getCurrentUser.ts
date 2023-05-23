@@ -21,8 +21,8 @@ export default async function getCurrentUser() {
         //     }
         // );
 
-        const currentUser = sanitizeCurrentUserFromBackend(response.data);
-
+        const currentUser = response.data.currentUser;
+        console.log('BACKEND user: ', response.data);
         if (!currentUser) {
             return null;
         }

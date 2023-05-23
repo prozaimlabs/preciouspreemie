@@ -2,7 +2,6 @@
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
-
 import { useCallback, useState } from 'react';
 import Modal from './Modal';
 import Input from '../inputs/Input';
@@ -48,8 +47,9 @@ const SigninModal = () => {
 
                 if (callback?.ok && !callback.error) {
                     toast.success('Logged in');
-                    router.refresh();
+
                     signinModal.onClose();
+                    router.refresh();
                 }
             })
             .catch((error) => {

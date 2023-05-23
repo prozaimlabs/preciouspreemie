@@ -27,6 +27,10 @@ export const authOptions: AuthOptions = {
                     .post('/api/users/signin', credentials)
                     .then((response) => {
                         user = response.data;
+                        console.log(
+                            '********** SIGNIN RESPONSE: ',
+                            response.data
+                        );
                     })
                     .catch((error) => {
                         console.log(error);
@@ -36,21 +40,35 @@ export const authOptions: AuthOptions = {
                     throw new Error('Invalid credentials');
                 }
 
-                return sanitizeCurrentUserFromBackend(user);
+                return user;
             },
         }),
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            return { ...token, ...user };
+        },
+        async session({ session, token, user }) {
+            session.user = token;
+            return session;
+        },
+    },
     events: {
-        async signOut() {
-            const router = useRouter();
-            await buildRequest()
-                .post('/api/users/signout')
-                .then(() => {
-                    router.push('/');
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+        async signOut({ token, session }) {
+            // const router = useRouter();
+            // await buildRequest()
+            //     .post('/api/users/signout')
+            //     .then(() => {
+            //         token = {};
+            //         session = { expires: '' };
+            //         console.log('Routing to home page');
+            //         router.push('/');
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
+            // token = {};
+            // session = { expires: '' };
         },
     },
     debug: process.env.NODE_ENV === 'development',

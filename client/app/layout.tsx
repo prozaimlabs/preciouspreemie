@@ -1,10 +1,9 @@
-import getCurrentUser from './actions/getCurrentUser';
-import { sanitizeCurrentUserFromBackend } from './api/sanitizers/current-user';
 import ClientOnly from './components/ClientOnly';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import SigninModal from './components/modals/SigninModal';
 import SignupModal from './components/modals/SignupModal';
+import AuthContext from './context/AuthContext';
 import ToasterContext from './context/ToasterProvider';
 
 import './globals.css';
@@ -23,20 +22,18 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const currentUser = await getCurrentUser();
-
-    console.log('CurrentUser: ', currentUser?.currentUser);
-
     return (
         <html lang="en">
             <body className={inter.className}>
-                <ClientOnly>
-                    <SigninModal />
-                    <SignupModal />
-                    <ToasterContext />
-                    <Header currentUser={currentUser?.currentUser} />
-                    <Footer />
-                </ClientOnly>
+                <AuthContext>
+                    <ClientOnly>
+                        <SigninModal />
+                        <SignupModal />
+                        <ToasterContext />
+                        <Header />
+                        <Footer />
+                    </ClientOnly>
+                </AuthContext>
                 <div className="pb-20 pt-28">{children}</div>
             </body>
         </html>

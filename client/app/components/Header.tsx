@@ -12,11 +12,7 @@ import MenuMobile from './MenuMobile';
 import UserMenu from './UserMenu';
 import { CurrentUser } from '../interfaces/user';
 
-interface HeaderProps {
-    currentUser?: CurrentUser;
-}
-
-const Header: React.FC<HeaderProps> = ({ currentUser }) => {
+const Header = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showCategoryMenu, setShowCategoryMenu] = useState(false);
     const [show, setShow] = useState('translate-y-0');
@@ -42,7 +38,6 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
         };
     }, [lastScrollY]);
 
-    if (currentUser) console.log('Current User: ', currentUser);
     return (
         <header
             className={`w-full h-[50px] md:h-[80px] bg-white flex 
@@ -103,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
                         </span>
                     </button>
 
-                    <UserMenu currentUser={currentUser} />
+                    <UserMenu />
 
                     <button
                         className="py-4 px-1 relative border-2 border-transparent text-gray-800 rounded-full 

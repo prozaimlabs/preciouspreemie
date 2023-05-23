@@ -3,7 +3,6 @@ import { headers } from 'next/headers';
 
 export default () => {
     const headersList = headers();
-
     return axios.create({
         baseURL:
             'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
