@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { BadRequestError } from '../errors/bad-request-error';
-import { validateRequest } from '../middlewares/validate-request';
+import { BadRequestError, validateRequest } from '@prozaimlabs/common';
 import { User } from '../models/user';
 import { PasswordManager } from '../utils/password-manager';
 import jwt from 'jsonwebtoken';
