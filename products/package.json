@@ -1,5 +1,5 @@
 {
-    "name": "auth",
+    "name": "products",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -12,8 +12,7 @@
         "testEnvironment": "node",
         "setupFilesAfterEnv": [
             "./src/test/setup.ts"
-        ],
-        "testTimeout": 60000
+        ]
     },
     "keywords": [],
     "author": "",

@@ -5,12 +5,12 @@ deploy:
         manifests:
             - ./infra/k8s/*
 build:
-    # local:
-    #     push: false
-    googleCloudBuild:
-        projectId: preemielove-dev-381621
+    local:
+        push: false
+    # googleCloudBuild:
+    #     projectId: preemielove-dev-381621
     artifacts:
-        - image: us.gcr.io/preemielove-dev-381621/auth
+        - image: zubairabubakar/preciouspreemie-auth #image: us.gcr.io/preemielove-dev-381621/auth
           context: auth
           docker:
               dockerfile: Dockerfile
@@ -18,7 +18,7 @@ build:
               manual:
                   - src: 'src/**/*.ts'
                     dest: .
-        - image: us.gcr.io/preemielove-dev-381621/client
+        - image: zubairabubakar/preciouspreemie-client #image: us.gcr.io/preemielove-dev-381621/client
           context: client
           docker:
               dockerfile: Dockerfile
@@ -27,4 +27,12 @@ build:
                   - src: '**/*.ts'
                     dest: .
                   - src: '**/*.tsx'
+                    dest: .
+        - image: zubairabubakar/preciouspreemie-products #image: us.gcr.io/preemielove-dev-381621/products
+          context: products
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
                     dest: .

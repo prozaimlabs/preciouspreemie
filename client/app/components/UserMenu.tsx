@@ -27,7 +27,7 @@ const UserMenu = () => {
             .post('/api/users/signout')
             .then(() => {
                 signOut({
-                    callbackUrl: 'https://preemielove.com',
+                    callbackUrl: 'https://preciouspreemie.com',
                     redirect: false,
                 });
                 router.refresh();
