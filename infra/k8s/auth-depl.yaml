@@ -14,8 +14,11 @@ spec:
         spec:
             containers:
                 - name: auth
-                  image: us.gcr.io/preemielove-dev-381621/auth
+                  # image: us.gcr.io/preemielove-dev-381621/auth
+                  image: zubairabubakar/preciouspreemie-auth
                   env:
+                      - name: MONGO_URI
+                        value: 'mongodb://auth-mongo-srv:27017/auth'
                       - name: JWT_KEY
                         valueFrom:
                             secretKeyRef:

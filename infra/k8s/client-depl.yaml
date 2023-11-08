@@ -14,7 +14,7 @@ spec:
         spec:
             containers:
                 - name: client
-                  image: us.gcr.io/preemielove-dev-381621/client
+                  image: zubairabubakar/preciouspreemie-client #image: us.gcr.io/preemielove-dev-381621/client
 ---
 apiVersion: v1
 kind: Service
