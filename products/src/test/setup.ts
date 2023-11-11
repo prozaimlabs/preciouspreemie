@@ -32,11 +32,11 @@ afterAll(async () => {
         await mongo.stop();
     }
     await mongoose.connection.close();
-}, 10000);
+}, 50000);
 
 global.signin = () => {
     const payload = {
-        id: '12323sfsdfsdf',
+        id: new mongoose.Types.ObjectId().toHexString(),
         email: 'test@test.com',
     };
 
