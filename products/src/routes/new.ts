@@ -1,9 +1,32 @@
 import express, { Request, Response } from 'express';
+import { requireAuth, validateRequest } from '@prozaimlabs/common';
+import { body } from 'express-validator';
+import { Product } from '../models/products';
 
 const router = express.Router();
 
-router.post('/api/products', (request: Request, response: Response) => {
-    response.sendStatus(200);
-});
+router.post(
+    '/api/products',
+    requireAuth,
+    [
+        body('name').not().isEmpty().withMessage('Product name is required'),
+        body('price')
+            .isFloat({ gt: 0 })
+            .withMessage('Price must be greater than 0'),
+    ],
+    validateRequest,
+    async (request: Request, response: Response) => {
+        const { name, price } = request.body;
+
+        const product = Product.build({
+            name,
+            price,
+            userId: request.currentUser!.id,
+        });
+        await product.save();
+
+        response.status(201).send(product);
+    }
+);
 
 export { router as createProductRouter };

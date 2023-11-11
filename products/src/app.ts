@@ -1,10 +1,11 @@
 import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
-import { errorHandler, NotFoundError } from '@prozaimlabs/common';
+import { errorHandler, NotFoundError, currentUser } from '@prozaimlabs/common';
 
 import cookieSession from 'cookie-session';
 import { createProductRouter } from './routes/new';
+import { showProductRouter } from './routes/show';
 
 const app = express();
 app.set('trust proxy', true);
@@ -16,7 +17,10 @@ app.use(
     })
 );
 
+app.use(currentUser);
+
 app.use(createProductRouter);
+app.use(showProductRouter);
 
 app.all('*', async (request, response) => {
     throw new NotFoundError();
