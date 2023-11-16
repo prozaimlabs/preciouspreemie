@@ -1,39 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: auth-depl
+    name: nats-depl
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: auth
+            app: nats
     template:
         metadata:
             labels:
-                app: auth
+                app: nats
         spec:
             containers:
-                - name: auth
-                  # image: us.gcr.io/preemielove-dev-381621/auth
-                  image: zubairabubakar/preciouspreemie-auth
-                  env:
-                      - name: MONGO_URI
-                        value: 'mongodb://auth-mongo-srv:27017/auth'
-                      - name: JWT_KEY
-                        valueFrom:
-                            secretKeyRef:
-                                name: jwt-secret
-                                key: JWT_KEY
+                - name: nats
+                  image: nats-streaming:0.25.5
+                  args:
+                      [
+                          '-p',
+                          '4222',
+                          '-m',
+                          '8222',
+                          '-hbi',
+                          '5s',
+                          '-hbt',
+                          '5s',
+                          '-hbf',
+                          '2',
+                          '-SD',
+                          '-cid',
+                          'preciouspreemie',
+                      ]
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-    name: auth-srv
+    name: nats-srv
 spec:
     selector:
-        app: auth
+        app: nats
     ports:
-        - name: auth
+        - name: client
           protocol: TCP
-          port: 30000
-          targetPort: 3000
+          port: 4222
+          targetPort: 4222
+        - name: monitoring
+          protocol: TCP
+          port: 8222
+          targetPort: 8222
