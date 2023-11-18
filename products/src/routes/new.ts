@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import { requireAuth, validateRequest } from '@prozaimlabs/common';
 import { body } from 'express-validator';
 import { Product } from '../models/products';
+import { ProductCreatedPublisher } from '../events/publishers/product-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -24,6 +26,13 @@ router.post(
             userId: request.currentUser!.id,
         });
         await product.save();
+
+        new ProductCreatedPublisher(natsWrapper.client).publish({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            userId: product.userId,
+        });
 
         response.status(201).send(product);
     }

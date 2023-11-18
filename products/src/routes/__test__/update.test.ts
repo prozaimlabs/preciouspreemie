@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import mongoose, { set } from 'mongoose';
+import { natsWrapper } from '../../nats-wrapper';
 
 const id = new mongoose.Types.ObjectId().toHexString();
 
@@ -72,5 +73,22 @@ it('updates the product provided the inputs are valid', async () => {
         .send();
 
     expect(productResponse.body.name).toEqual('new cap');
-    expect(productResponse.body.price).toEqual(200);
+    expect(productResponse.body.price).toEqual(30);
+});
+
+it('publishes an event upon product update', async () => {
+    const cookie = global.signin();
+
+    const response = await request(app)
+        .post(`/api/products`)
+        .set('Cookie', cookie)
+        .send({ name: 'cap', price: 30 });
+
+    await request(app)
+        .put(`/api/products/${response.body.id}`)
+        .set('Cookie', cookie)
+        .send({ name: 'new cap', price: 30 })
+        .expect(200);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

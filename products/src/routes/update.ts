@@ -7,6 +7,8 @@ import {
     validateRequest,
 } from '@prozaimlabs/common';
 import { body } from 'express-validator';
+import { ProductUpdatedPublisher } from '../events/publishers/product-updated-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -36,6 +38,13 @@ router.put(
             price: request.body.price,
         });
         await product.save();
+
+        new ProductUpdatedPublisher(natsWrapper.client).publish({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            userId: product.userId,
+        });        
 
         response.send(product);
     }

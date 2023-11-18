@@ -13,9 +13,17 @@ spec:
                 app: products
         spec:
             containers:
-                - name: auth
+                - name: products
                   image: zubairabubakar/preciouspreemie-products #us.gcr.io/preemielove-dev-381621/products
                   env:
+                      - name: NATS_CLUSTER_ID
+                        value: 'preciouspreemie'
+                      - name: NATS_CLIENT_ID
+                        valueFrom:
+                            fieldRef:
+                                fieldPath: metadata.name
+                      - name: NATS_URL
+                        value: 'http://nats-srv:4222'
                       - name: MONGO_URI
                         value: 'mongodb://products-mongo-srv:27017/products'
                       - name: JWT_KEY
