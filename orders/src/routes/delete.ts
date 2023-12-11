@@ -6,6 +6,8 @@ import {
     requireAuth,
 } from '@prozaimlabs/common';
 import { Order } from '../models/orders';
+import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -23,6 +25,14 @@ router.delete(
         }
         order.status = OrderStatus.Cancelled;
         await order.save();
+
+        // publish order cancelled event
+        new OrderCancelledPublisher(natsWrapper.client).publish({
+            id: order.id,
+            product: {
+                id: order.product.id,
+            },
+        });
 
         response.status(204).send(order);
     }
