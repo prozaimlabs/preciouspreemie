@@ -7,6 +7,7 @@ import { natsWrapper } from '../../nats-wrapper';
 it('deletes an order', async () => {
     // Create a product
     const product = Product.build({
+        id: '1111',
         name: 'Baby toy',
         price: 500,
     });
@@ -36,6 +37,7 @@ it('deletes an order', async () => {
 it('emits order deleted event', async () => {
     // Create a product
     const product = Product.build({
+        id: '1111',
         name: 'Baby toy',
         price: 500,
     });
