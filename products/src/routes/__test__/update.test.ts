@@ -1,7 +1,8 @@
 import request from 'supertest';
 import { app } from '../../app';
-import mongoose, { set } from 'mongoose';
+import mongoose from 'mongoose';
 import { natsWrapper } from '../../nats-wrapper';
+import { Product } from '../../models/products';
 
 const id = new mongoose.Types.ObjectId().toHexString();
 
@@ -91,4 +92,23 @@ it('publishes an event upon product update', async () => {
         .expect(200);
 
     expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
+it('rejects updates if the product is already reserved', async () => {
+    const cookie = global.signin();
+
+    const response = await request(app)
+        .post(`/api/products`)
+        .set('Cookie', cookie)
+        .send({ name: 'cap', price: 30 });
+
+    const product = await Product.findById(response.body.id);
+    product!.set({ orderId: new mongoose.Types.ObjectId().toHexString() });
+    await product!.save();
+
+    await request(app)
+        .put(`/api/products/${response.body.id}`)
+        .set('Cookie', cookie)
+        .send({ name: 'new cap', price: 30 })
+        .expect(400);
 });
