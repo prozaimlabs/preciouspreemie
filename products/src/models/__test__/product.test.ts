@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { Product } from '../products';
 
 it('implements optimistic concurrency control', async () => {
