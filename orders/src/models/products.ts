@@ -55,7 +55,7 @@ productSchema.statics.findByEvent = (event: {
 }) => {
     return Product.findOne({
         _id: event.id,
-        version: event.version,
+        version: event.version - 1,
     });
 };
 

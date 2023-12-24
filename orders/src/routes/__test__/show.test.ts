@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { app } from '../../app';
 import { Product } from '../../models/products';
 import request from 'supertest';
@@ -5,6 +6,7 @@ import request from 'supertest';
 it('fetches an order', async () => {
     // Create a product
     const product = Product.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         name: 'Baby toy',
         price: 500,
     });
@@ -32,6 +34,7 @@ it('fetches an order', async () => {
 it('returns an error if another user tries to fetch that does not belong to them', async () => {
     // Create a product
     const product = Product.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         name: 'Baby toy',
         price: 500,
     });

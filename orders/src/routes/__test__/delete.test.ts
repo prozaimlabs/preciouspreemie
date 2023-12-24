@@ -3,11 +3,12 @@ import { Order, OrderStatus } from '../../models/orders';
 import { Product } from '../../models/products';
 import request from 'supertest';
 import { natsWrapper } from '../../nats-wrapper';
+import mongoose from 'mongoose';
 
 it('deletes an order', async () => {
     // Create a product
     const product = Product.build({
-        id: '1111',
+        id: new mongoose.Types.ObjectId().toHexString(),
         name: 'Baby toy',
         price: 500,
     });
@@ -37,7 +38,7 @@ it('deletes an order', async () => {
 it('emits order deleted event', async () => {
     // Create a product
     const product = Product.build({
-        id: '1111',
+        id: new mongoose.Types.ObjectId().toHexString(),
         name: 'Baby toy',
         price: 500,
     });
