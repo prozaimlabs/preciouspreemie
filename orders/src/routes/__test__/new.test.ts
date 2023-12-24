@@ -18,6 +18,7 @@ it('returns an error if the product does not exist', async () => {
 
 it('returns an error if the product is already reserved', async () => {
     const product = Product.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         name: 'test product',
         price: 500,
     });
@@ -39,6 +40,7 @@ it('returns an error if the product is already reserved', async () => {
 
 it('reserves a product', async () => {
     const product = Product.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         name: 'test product',
         price: 500,
     });
@@ -53,6 +55,7 @@ it('reserves a product', async () => {
 
 it('emits an order created event', async () => {
     const product = Product.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         name: 'test product',
         price: 500,
     });
