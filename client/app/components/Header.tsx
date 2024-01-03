@@ -12,7 +12,11 @@ import MenuMobile from './MenuMobile';
 import UserMenu from './UserMenu';
 import { CurrentUser } from '../interfaces/user';
 
-const Header = () => {
+interface HeaderProps {
+    currentUser?: CurrentUser | null;
+}
+
+const Header: React.FC<HeaderProps> = ({ currentUser }) => {
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showCategoryMenu, setShowCategoryMenu] = useState(false);
     const [show, setShow] = useState('translate-y-0');
@@ -98,7 +102,7 @@ const Header = () => {
                         </span>
                     </button>
 
-                    <UserMenu />
+                    <UserMenu currentUser={currentUser} />
 
                     <button
                         className="py-4 px-1 relative border-2 border-transparent text-gray-800 rounded-full 

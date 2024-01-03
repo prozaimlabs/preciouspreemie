@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import useSignupModal from '@/app/hooks/useSignupModal';
 import useSigninModal from '@/app/hooks/useSigninModal';
+import axios from 'axios';
 
 interface BackendError {
     field: string;
@@ -37,25 +38,40 @@ const SigninModal = () => {
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
 
-        signIn('credentials', { ...data, redirect: false })
-            .then((callback) => {
-                setIsLoading(false);
+        // signIn('credentials', { ...data, redirect: false })
+        //     .then((callback) => {
+        //         setIsLoading(false);
 
-                if (callback?.error) {
-                    toast.error(callback.error);
-                }
+        //         if (callback?.error) {
+        //             toast.error(callback.error);
+        //         }
 
-                if (callback?.ok && !callback.error) {
-                    toast.success('Logged in');
+        //         if (callback?.ok && !callback.error) {
+        //             toast.success('Logged in');
 
-                    signinModal.onClose();
-                    router.refresh();
-                }
+        //             signinModal.onClose();
+        //             router.refresh();
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         setBackendErrors(error.response.data.errors);
+        //     })
+        //     .finally(() => setIsLoading(false));
+
+        axios
+            .post('/api/users/signin', data)
+            .then((response) => {
+                toast.success('Logged in!');
+                signinModal.onClose();
+                router.refresh();
+                console.log(response.data);
             })
             .catch((error) => {
                 setBackendErrors(error.response.data.errors);
             })
-            .finally(() => setIsLoading(false));
+            .finally(() => {
+                setIsLoading(false);
+            });
     };
 
     const toogleSigninSignupModal = useCallback(() => {

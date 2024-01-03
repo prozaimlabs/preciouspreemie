@@ -1,3 +1,4 @@
+import getCurrentUser from './actions/getCurrentUser';
 import ClientOnly from './components/ClientOnly';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -9,11 +10,12 @@ import ToasterContext from './context/ToasterProvider';
 import './globals.css';
 
 import { Inter } from 'next/font/google';
+import { CurrentUser } from './interfaces/user';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-    title: 'Precious Preemie',
+    title: 'Precious Preemies',
     description: 'A community for premature baby parents',
 };
 
@@ -22,6 +24,8 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
+    const currentUser = await getCurrentUser();
+
     return (
         <html lang="en">
             <body className={inter.className}>
@@ -30,7 +34,7 @@ export default async function RootLayout({
                         <SigninModal />
                         <SignupModal />
                         <ToasterContext />
-                        <Header />
+                        <Header currentUser={currentUser} />
                         <Footer />
                     </ClientOnly>
                 </AuthContext>

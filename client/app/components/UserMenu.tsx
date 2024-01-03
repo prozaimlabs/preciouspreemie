@@ -1,17 +1,20 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { BiUser } from 'react-icons/bi';
 import UserMenuItem from './navbar/UserMenuItem';
 import useSignupModal from '../hooks/useSignupModal';
 import useSigninModal from '../hooks/useSigninModal';
 import axios from 'axios';
+import { CurrentUser } from '../interfaces/user';
 
-const UserMenu = () => {
+interface UserMenuProps {
+    currentUser?: CurrentUser | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     const router = useRouter();
-    const { data: session } = useSession();
 
     const signupModal = useSignupModal();
     const signinModal = useSigninModal();
@@ -26,16 +29,14 @@ const UserMenu = () => {
         axios
             .post('/api/users/signout')
             .then(() => {
-                signOut({
-                    callbackUrl: 'https://preciouspreemie.com',
-                    redirect: false,
-                });
                 router.refresh();
             })
             .catch((error) => {
                 console.log(error);
             });
     };
+
+    console.log('CurrentUser User menu: ', currentUser);
 
     return (
         <div className="relative">
@@ -53,7 +54,7 @@ const UserMenu = () => {
             {isOpen && (
                 <div className="absolute min-w-[200px] px-1 rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-6 text-sm">
                     <div className="flex flex-col cursor-pointer">
-                        {session?.user ? (
+                        {currentUser ? (
                             <>
                                 <UserMenuItem
                                     onClick={() => router.push('/account')}

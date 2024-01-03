@@ -1,5 +1,13 @@
 export interface CurrentUser {
+    id: string;
     email: string;
     iat: number;
-    id: string;
+}
+
+export interface BackendCurrentUser {
+    currentUser: {
+        id: string;
+        email: string;
+        iat: number;
+    };
 }

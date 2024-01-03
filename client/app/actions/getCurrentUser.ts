@@ -1,33 +1,31 @@
 import { getSession } from './getSession';
 import buildRequest from './buildRequest';
+import { headers, cookies } from 'next/headers';
 import { sanitizeCurrentUserFromBackend } from '../api/sanitizers/current-user';
+import axios from 'axios';
 
 export default async function getCurrentUser() {
     try {
-        // const session = await getSession();
+        const session = await getSession();
 
         // if (!session?.user?.email) {
         //     return null;
         // }
 
-        const response = await buildRequest().get('/api/users/currentuser');
-        // const response = await axios.get(
-        //     'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser',
-        //     {
-        //         headers: {
-        //             Host: headersList.get('host'),
-        //             Cookie: headersList.get('cookie'),
-        //         },
-        //     }
-        // );
+        console.log('SESSION: ', session);
 
-        const currentUser = response.data.currentUser;
-        console.log('BACKEND user: ', response.data);
+        const response = await buildRequest().get('/api/users/currentuser');
+
+        console.log('Current user*******: ', response.data);
+        const currentUser = sanitizeCurrentUserFromBackend(response.data);
+
         if (!currentUser) {
             return null;
         }
 
-        return { currentUser };
+        console.log('BACKEND user0000000: ', currentUser);
+
+        return currentUser;
     } catch (error: any) {
         return null;
     }
