@@ -13,6 +13,7 @@ import { FcGoogle } from 'react-icons/fc';
 import useSignupModal from '@/app/hooks/useSignupModal';
 import useSigninModal from '@/app/hooks/useSigninModal';
 import axios from 'axios';
+import { useRequest } from '@/app/hooks/useRequest';
 
 interface BackendError {
     field: string;
@@ -37,27 +38,6 @@ const SigninModal = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
-
-        // signIn('credentials', { ...data, redirect: false })
-        //     .then((callback) => {
-        //         setIsLoading(false);
-
-        //         if (callback?.error) {
-        //             toast.error(callback.error);
-        //         }
-
-        //         if (callback?.ok && !callback.error) {
-        //             toast.success('Logged in');
-
-        //             signinModal.onClose();
-        //             router.refresh();
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         setBackendErrors(error.response.data.errors);
-        //     })
-        //     .finally(() => setIsLoading(false));
-
         axios
             .post('/api/users/signin', data)
             .then((response) => {
@@ -97,9 +77,9 @@ const SigninModal = () => {
             </div>
 
             {backendErrors.length > 0 && (
-                <div className="bg-rose-200 rounded px-1 border-red-800 text-red-800 font-semibold">
-                    <h4>Oooops....</h4>
-                    <ul className="my-0">
+                <div className="bg-rose-200 rounded px-1 border-red-800">
+                    <h4 className="text-red-800 font-semibold">Error!</h4>
+                    <ul className="my-0 text-red-800">
                         {backendErrors.map((error) => (
                             <li key={error.message}>{error.message}</li>
                         ))}

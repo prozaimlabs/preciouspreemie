@@ -10,7 +10,6 @@ import ToasterContext from './context/ToasterProvider';
 import './globals.css';
 
 import { Inter } from 'next/font/google';
-import { CurrentUser } from './interfaces/user';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,10 +34,10 @@ export default async function RootLayout({
                         <SignupModal />
                         <ToasterContext />
                         <Header currentUser={currentUser} />
+                        <div className="pb-20 pt-28">{children}</div>
                         <Footer />
                     </ClientOnly>
                 </AuthContext>
-                <div className="pb-20 pt-28">{children}</div>
             </body>
         </html>
     );

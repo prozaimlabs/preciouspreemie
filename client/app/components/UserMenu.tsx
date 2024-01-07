@@ -7,7 +7,7 @@ import UserMenuItem from './navbar/UserMenuItem';
 import useSignupModal from '../hooks/useSignupModal';
 import useSigninModal from '../hooks/useSigninModal';
 import axios from 'axios';
-import { CurrentUser } from '../interfaces/user';
+import { CurrentUser } from '../interfaces/currentUser';
 
 interface UserMenuProps {
     currentUser?: CurrentUser | null;

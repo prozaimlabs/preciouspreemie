@@ -10,7 +10,7 @@ import { BiMenuAltRight } from 'react-icons/bi';
 import { VscChromeClose } from 'react-icons/vsc';
 import MenuMobile from './MenuMobile';
 import UserMenu from './UserMenu';
-import { CurrentUser } from '../interfaces/user';
+import { CurrentUser } from '../interfaces/currentUser';
 
 interface HeaderProps {
     currentUser?: CurrentUser | null;

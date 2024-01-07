@@ -1,3 +1,4 @@
+import { data } from 'autoprefixer';
 import axios, { AxiosRequestConfig } from 'axios';
 import { JSXElementConstructor, useState } from 'react';
 
@@ -14,6 +15,7 @@ interface Error {
 export const useRequest = ({ url, method, body }: RequestProps) => {
     const [backendErrors, setBackendErrors] = useState<any>(<div></div>);
 
+    console.log('form data: ', data);
     const doRequest = async () => {
         try {
             let config: AxiosRequestConfig = {

@@ -1,4 +1,4 @@
-import { BackendCurrentUser, CurrentUser } from '@/app/interfaces/user';
+import { BackendCurrentUser, CurrentUser } from '@/app/interfaces/currentUser';
 
 export const sanitizeCurrentUserFromBackend = (
     data: BackendCurrentUser
