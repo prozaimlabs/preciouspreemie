@@ -73,9 +73,9 @@ const RegisterModal = () => {
             </div>
 
             {backendErrors.length > 0 && (
-                <div className="bg-rose-200 rounded px-1 border-red-800 text-red-800 font-semibold">
-                    <h4>Oooops....</h4>
-                    <ul className="my-0">
+                <div className="bg-rose-200 rounded px-1 border-red-800">
+                    <h4 className="text-red-800 font-semibold">Error!</h4>
+                    <ul className="my-0 text-red-800">
                         {backendErrors.map((error) => (
                             <li key={error.message}>{error.message}</li>
                         ))}
@@ -83,16 +83,16 @@ const RegisterModal = () => {
                 </div>
             )}
             <Input
-                id="email"
-                label="Email"
+                id="name"
+                label="Name"
                 disabled={isLoading}
                 register={register}
                 errors={errors}
                 required
             />
             <Input
-                id="name"
-                label="Name"
+                id="email"
+                label="Email"
                 disabled={isLoading}
                 register={register}
                 errors={errors}

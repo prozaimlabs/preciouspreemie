@@ -1,3 +1,4 @@
+import getCurrentUser from './actions/getCurrentUser';
 import ClientOnly from './components/ClientOnly';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -13,7 +14,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-    title: 'Precious Preemie',
+    title: 'Precious Preemies',
     description: 'A community for premature baby parents',
 };
 
@@ -22,6 +23,8 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
+    const currentUser = await getCurrentUser();
+
     return (
         <html lang="en">
             <body className={inter.className}>
@@ -30,11 +33,11 @@ export default async function RootLayout({
                         <SigninModal />
                         <SignupModal />
                         <ToasterContext />
-                        <Header />
+                        <Header currentUser={currentUser} />
+                        <div className="pb-20 pt-28">{children}</div>
                         <Footer />
                     </ClientOnly>
                 </AuthContext>
-                <div className="pb-20 pt-28">{children}</div>
             </body>
         </html>
     );

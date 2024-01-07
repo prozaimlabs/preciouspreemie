@@ -1,10 +1,8 @@
-import { CurrentUser } from '@/app/interfaces/user';
+import { BackendCurrentUser, CurrentUser } from '@/app/interfaces/currentUser';
 
-interface User {
-    currentUser: CurrentUser;
-}
-
-export const sanitizeCurrentUserFromBackend = (data: User) => {
+export const sanitizeCurrentUserFromBackend = (
+    data: BackendCurrentUser
+): CurrentUser => {
     return {
         id: data.currentUser.id,
         email: data.currentUser.email,

@@ -27,10 +27,6 @@ export const authOptions: AuthOptions = {
                     .post('/api/users/signin', credentials)
                     .then((response) => {
                         user = response.data;
-                        console.log(
-                            '********** SIGNIN RESPONSE: ',
-                            response.data
-                        );
                     })
                     .catch((error) => {
                         console.log(error);
@@ -45,11 +41,20 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user }) {
-            return { ...token, ...user };
+        async jwt({ token, account }) {
+            if (account) {
+                token = Object.assign({}, token, {
+                    access_token: account.access_token,
+                });
+            }
+            return token;
         },
-        async session({ session, token, user }) {
-            session.user = token;
+        async session({ session, token }) {
+            if (session) {
+                session = Object.assign({}, session, {
+                    access_token: token.access_token,
+                });
+            }
             return session;
         },
     },
