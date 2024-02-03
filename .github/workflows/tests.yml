@@ -22,7 +22,4 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run all tests in the auth service
-        run: cd auth && npm install && run test
+      - run: cd auth && npm install && run test:ci
