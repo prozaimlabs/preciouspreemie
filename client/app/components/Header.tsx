@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
                         items-center justify-between z-20 sticky top-0 transition-transform duration-300 ${show}
                             `}
         >
-            <Wrapper className="h-[60px] flex justify-between items-center">
+            <Wrapper className="h-[40px] flex justify-between items-center">
                 <Link href={'/'}>
                     <img
                         src="/images/logo.png"

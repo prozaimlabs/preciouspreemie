@@ -3,6 +3,7 @@ export interface ProductBackend {
     price: number;
     userId: string;
     version?: number;
+    orderId?: string;
     id: string;
 }
 

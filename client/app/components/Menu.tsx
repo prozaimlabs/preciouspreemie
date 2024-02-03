@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import React from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { BsChevronDown } from 'react-icons/bs';
+import CategoryBox from './CategoryBox';
 
 interface MenuProps {
     showCategoryMenu?: boolean;
@@ -31,6 +31,15 @@ const Menu: React.FC<MenuProps> = ({
     setShowCategoryMenu,
 }) => {
     const router = useRouter();
+    const params = useSearchParams();
+
+    const category = params?.get('category');
+    const pathname = usePathname();
+
+    const isMainPage = pathname === '/';
+    if (!isMainPage) {
+        return null;
+    }
 
     return (
         <ul className="hidden md:flex items-center gap-8 font-medium text-black">
@@ -50,22 +59,14 @@ const Menu: React.FC<MenuProps> = ({
                                     <ul className="bg-white absolute top-6 left-0 min-w-[250px] px-1 text-black shadow-lg">
                                         {subMenuItems.map((subMenuitem) => {
                                             return (
-                                                <Link
-                                                    key={subMenuitem.id}
-                                                    href="/"
-                                                    onClick={() =>
-                                                        setShowCategoryMenu!(
-                                                            false
-                                                        )
+                                                <CategoryBox
+                                                    key={subMenuitem.name}
+                                                    label={subMenuitem.name}
+                                                    selected={
+                                                        category ===
+                                                        subMenuitem.name
                                                     }
-                                                >
-                                                    <li className="h-12 flex justify-between items-center px-3 py-1 hover:bg-black/[0.03] rounded-md">
-                                                        {subMenuitem.name}
-                                                        <span className="opacity-50 text-sm">
-                                                            78
-                                                        </span>
-                                                    </li>
-                                                </Link>
+                                                />
                                             );
                                         })}
                                     </ul>

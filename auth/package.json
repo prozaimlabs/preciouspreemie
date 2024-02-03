@@ -6,6 +6,7 @@
     "scripts": {
         "start": "ts-node-dev src/index.ts",
         "test": "jest --watchAll --no-cache",
+        "test:ci": "jest",
         "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev"
     },
     "jest": {

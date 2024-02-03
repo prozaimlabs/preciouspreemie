@@ -34,7 +34,7 @@ export default async function RootLayout({
                         <SignupModal />
                         <ToasterContext />
                         <Header currentUser={currentUser} />
-                        <div className="pb-20 pt-28">{children}</div>
+                        <div>{children}</div>
                         <Footer />
                     </ClientOnly>
                 </AuthContext>
