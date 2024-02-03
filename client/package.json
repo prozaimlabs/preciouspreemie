@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@prozaimlabs/common": "^1.0.23",
         "@tailwindcss/forms": "^0.5.3",
         "@types/node": "20.1.4",
         "@types/react": "18.2.6",
@@ -21,11 +22,17 @@
         "next": "13.4.2",
         "next-auth": "^4.22.1",
         "postcss": "8.4.23",
+        "prop-types": "^15.8.1",
+        "query-string": "^8.1.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-hook-form": "^7.43.9",
         "react-hot-toast": "^2.4.1",
         "react-icons": "^4.8.0",
+        "react-markdown": "^9.0.1",
+        "react-responsive-carousel": "^3.2.23",
+        "react-stripe-checkout": "^2.6.3",
+        "react-toastify": "^10.0.4",
         "tailwindcss": "3.3.2",
         "typescript": "5.0.4",
         "zustand": "^4.3.8"
