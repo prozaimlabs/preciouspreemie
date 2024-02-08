@@ -6,7 +6,11 @@ name: tests-products
 on:
     # Triggers the workflow on push or pull request events
     push:
+        paths:
+            - 'products/**'
     pull_request:
+        paths:
+            - 'products/**'
 
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
