@@ -15,7 +15,7 @@ export default async function Home() {
                         Supporting You in nuturing your preemie!
                     </div>
                     <div className="text-md md:text-xl">
-                        Wheather its a cozy sleep pad, a comfy outfit or a
+                        Whether its a cozy sleep pad, a comfy outfit or a
                         community preemie parents that you are looking we are
                         her for you.
                     </div>
