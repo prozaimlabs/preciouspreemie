@@ -11,9 +11,10 @@ export default () => {
             return cookie.includes('session=');
         });
 
+    // baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+
     return axios.create({
-        baseURL:
-            'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+        baseURL: 'http://www.zubairabubakar.co/',
         headers: {
             Host: headersList.get('host'),
             Cookie: cookie,
